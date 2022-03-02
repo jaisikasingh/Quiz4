@@ -10,19 +10,19 @@ struct ContentView: View {
 
     var body: some View {
         VStack {
-            Text("All users")
+            Text("All comments")
                 .font(.title)
                 .bold()
 
             ScrollView(.horizontal) {
                 HStack(alignment: .top, spacing: 10){
-                    ForEach(network.users) { user in
+                    ForEach(network.comments) { comment in
                         VStack(alignment: .leading) {
-                            Text("\(user.id)")
-                            Text(user.name)
+                            Text("\(comment.id)")
+                            Text(comment.name)
                                 .bold()
-                            Text(user.email.lowercased())
-                            Text(user.body)
+                            Text(comment.email.lowercased())
+                            Text(comment.body)
                         }
                     }
                     .frame(width: 300,  height: 300,alignment: .leading)
@@ -31,11 +31,27 @@ struct ContentView: View {
                     .cornerRadius(20)
                 }
             }
-            
+            VStack(alignment: .leading){
+                if network.comments.count > 0,
+                   let comments = network.comments[10]{
+                    Text("\(comments.id)")
+                    Text(comments.name)
+                        .bold()
+                    Text(comments.email.lowercased())
+                    Text(comments.body)
+                    
+                }
+                
+            }
+            .frame(width: 300,  height: 300,alignment: .leading)
+            .padding()
+            .background(Color.green)
+            .cornerRadius(20)
         }
+      
         .padding(.vertical)
         .onAppear {
-            network.getUsers()
+            network.getComments()
         }
     }
    

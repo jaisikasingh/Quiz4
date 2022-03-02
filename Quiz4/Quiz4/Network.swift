@@ -9,10 +9,10 @@ import Foundation
 import SwiftUI
 
 class Network: ObservableObject {
-    @Published var users: [User] = []
+    @Published var comments: [Comment] = []
 
-    func getUsers() {
-        guard let url = URL(string: "https://jsonplaceholder.typicode.com/users/comments") else { fatalError("Missing URL") }
+    func getComments() {
+        guard let url = URL(string: "https://jsonplaceholder.typicode.com/comments") else { fatalError("Missing URL") }
 
         let urlRequest = URLRequest(url: url)
 
@@ -28,8 +28,8 @@ class Network: ObservableObject {
                 guard let data = data else { return }
                 DispatchQueue.main.async {
                     do {
-                        let decodedUsers = try JSONDecoder().decode([User].self, from: data)
-                        self.users = decodedUsers
+                        let decodedComments = try JSONDecoder().decode([Comment].self, from: data)
+                        self.comments = decodedComments
                     } catch let error {
                         print("Error decoding: ", error)
                     }
